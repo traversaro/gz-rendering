@@ -41,6 +41,7 @@
 #include "ignition/rendering/ogre2/Ogre2Scene.hh"
 #include "ignition/rendering/ogre2/Ogre2Storage.hh"
 
+#include "Ogre2IgnHlmsCustomizations.hh"
 
 class ignition::rendering::Ogre2RenderEnginePrivate
 {
@@ -50,6 +51,9 @@ class ignition::rendering::Ogre2RenderEnginePrivate
 
   /// \brief A list of supported fsaa levels
   public: std::vector<unsigned int> fsaaLevels;
+
+  /// \brief Controls Hlms customizations for both PBS and Unlit
+  public: ignition::rendering::Ogre2IgnHlmsCustomizations hlmsCustomizations;
 };
 
 using namespace ignition;
@@ -645,6 +649,10 @@ void Ogre2RenderEngine::CreateResources()
 
   Ogre::ArchiveManager &archiveManager = Ogre::ArchiveManager::getSingleton();
 
+  Ogre::Archive *customizationsArchiveLibrary =
+      archiveManager.load( rootHlmsFolder + "Hlms/Ignition", "FileSystem",
+                           true );
+
   {
     Ogre::HlmsUnlit *hlmsUnlit = 0;
     // Create & Register HlmsUnlit
@@ -664,6 +672,8 @@ void Ogre2RenderEngine::CreateResources()
       ++libraryFolderPathIt;
     }
 
+    archiveUnlitLibraryFolders.push_back( customizationsArchiveLibrary );
+
     // Create and register the unlit Hlms
     hlmsUnlit = OGRE_NEW Ogre::HlmsUnlit(archiveUnlit,
         &archiveUnlitLibraryFolders);
@@ -671,6 +681,7 @@ void Ogre2RenderEngine::CreateResources()
 
     // disable writting debug output to disk
     hlmsUnlit->setDebugOutputPath(false, false);
+    hlmsUnlit->setListener(&this->dataPtr->hlmsCustomizations);
   }
 
   {
@@ -694,12 +705,15 @@ void Ogre2RenderEngine::CreateResources()
       ++libraryFolderPathIt;
     }
 
+    archivePbsLibraryFolders.push_back( customizationsArchiveLibrary );
+
     // Create and register
     hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &archivePbsLibraryFolders);
     Ogre::Root::getSingleton().getHlmsManager()->registerHlms(hlmsPbs);
 
     // disable writting debug output to disk
     hlmsPbs->setDebugOutputPath(false, false);
+    hlmsPbs->setListener(&this->dataPtr->hlmsCustomizations);
   }
 }
 
@@ -813,6 +827,12 @@ void Ogre2RenderEngine::InitAttempt()
 std::vector<unsigned int> Ogre2RenderEngine::FSAALevels() const
 {
   return this->dataPtr->fsaaLevels;
+}
+
+/////////////////////////////////////////////////
+Ogre2IgnHlmsCustomizations& Ogre2RenderEngine::HlmsCustomizations()
+{
+  return this->dataPtr->hlmsCustomizations;
 }
 
 /////////////////////////////////////////////////
