@@ -23,7 +23,7 @@
 
 #include <ignition/plugin/Loader.hh>
 
-#include "ignition/rendering/config.hh"
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/RenderEngine.hh"
 #include "ignition/rendering/RenderEngineManager.hh"
 #include "ignition/rendering/RenderEnginePlugin.hh"
@@ -446,7 +446,7 @@ bool RenderEngineManagerPrivate::LoadEnginePlugin(
 
   // Add default install folder.
   systemPaths.AddPluginPaths(std::string(IGN_RENDERING_PLUGIN_PATH));
-  systemPaths.AddPluginPaths({IGNITION_RENDERING_ENGINE_INSTALL_DIR});
+  systemPaths.AddPluginPaths(ignition::rendering::getEngineInstallDir());
 
   // Add any preset plugin paths.
   for (const auto &path : this->pluginPaths)

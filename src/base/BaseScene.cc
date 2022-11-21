@@ -30,6 +30,7 @@
 #include "ignition/rendering/BoundingBoxCamera.hh"
 #include "ignition/rendering/COMVisual.hh"
 #include "ignition/rendering/InertiaVisual.hh"
+#include "ignition/rendering/InstallationDirectories.hh" 
 #include "ignition/rendering/JointVisual.hh"
 #include "ignition/rendering/LidarVisual.hh"
 #include "ignition/rendering/LightVisual.hh"
@@ -1559,7 +1560,7 @@ void BaseScene::CreateMaterials()
 
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
 
   // path to look for CoM material texture
   std::string com_material_texture_path = common::joinPaths(

@@ -36,6 +36,7 @@
 #include <ignition/common/Filesystem.hh>
 #include <ignition/common/Util.hh>
 
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/RenderEngineManager.hh"
 #include "ignition/rendering/ogre/OgreIncludes.hh"
 #include "ignition/rendering/ogre/OgreRenderEngine.hh"
@@ -562,7 +563,7 @@ void OgreRenderEngine::CreateResources()
   std::list<std::string> paths;
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
   // install path
   std::string mediaPath = common::joinPaths(resourcePath, "ogre", "media");
   paths.push_back(mediaPath);

@@ -18,6 +18,7 @@
 #include <ignition/common/Console.hh>
 #include <ignition/common/Filesystem.hh>
 
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/ShaderParams.hh"
 #include "ignition/rendering/ogre/OgreMaterial.hh"
 #include "ignition/rendering/ogre/OgreConversions.hh"
@@ -662,7 +663,7 @@ void OgreMaterial::SetDepthMaterial(const double _far,
   // Get shader parameters path
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
 
   // path to look for vertex and fragment shader parameters
   std::string depth_vertex_shader_path = common::joinPaths(

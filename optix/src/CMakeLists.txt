@@ -29,8 +29,6 @@ set(cuda_sources
 
 set_property(
   SOURCE OptixRenderEngine.cc
-  PROPERTY COMPILE_DEFINITIONS
-  IGN_RENDERING_RESOURCE_PATH="${IGN_RENDERING_RESOURCE_PATH}"
 )
 
 target_link_libraries(${optix_target}

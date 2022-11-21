@@ -15,6 +15,7 @@
  *
  */
 
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/ogre/OgreCamera.hh"
 #include "ignition/rendering/ogre/OgreConversions.hh"
 #include "ignition/rendering/ogre/OgreIncludes.hh"

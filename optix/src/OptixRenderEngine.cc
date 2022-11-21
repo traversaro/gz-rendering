@@ -82,7 +82,7 @@ std::string OptixRenderEngine::PtxFile(const std::string& _fileBase) const
 
   const char *env= std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
   resourcePath = common::joinPaths(resourcePath, "optix");
   folders.push_back(resourcePath);
 

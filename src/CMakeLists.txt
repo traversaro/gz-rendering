@@ -22,6 +22,9 @@ endif()
 
 # Create the library target.
 ign_create_core_library(SOURCES ${sources} CXX_STANDARD 17)
+ign_add_get_install_prefix_impl(GET_INSTALL_PREFIX_FUNCTION ignition::rendering::getInstallPrefix
+                                GET_INSTALL_PREFIX_HEADER ignition/rendering/InstallationDirectories.hh
+                                OVERRIDE_INSTALL_PREFIX_ENV_VARIABLE IGN_RENDERING_INSTALL_PREFIX)
 
 # Include the interface directories that we always need.
 #ign_target_interface_include_directories(${PROJECT_LIBRARY_TARGET_NAME}
@@ -45,4 +48,5 @@ endif()
 
 # Build the unit tests.
 ign_build_tests(TYPE UNIT SOURCES ${gtest_sources})
+                          ENVIRONMENT IGN_RENDERING_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 

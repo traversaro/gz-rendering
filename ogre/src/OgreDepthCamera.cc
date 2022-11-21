@@ -23,6 +23,7 @@
   #include <windows.h>
 #endif
 #include <ignition/math/Helpers.hh>
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/ogre/OgreDepthCamera.hh"
 #include "ignition/rendering/ogre/OgreMaterial.hh"
 
@@ -210,7 +211,7 @@ void OgreDepthCamera::CreatePointCloudTexture()
 
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
 
   // path to look for vertex and fragment shader parameters
   std::string pcdVSPath = common::joinPaths(

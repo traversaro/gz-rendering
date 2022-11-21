@@ -28,7 +28,7 @@
 #include <ignition/common/Filesystem.hh>
 #include <ignition/common/Util.hh>
 
-#include "ignition/rendering/config.hh"
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/ogre/OgreRenderEngine.hh"
 #include "ignition/rendering/ogre/OgreScene.hh"
 #include "ignition/rendering/ogre/OgreMaterial.hh"
@@ -487,7 +487,7 @@ bool OgreRTShaderSystem::Paths(std::string &coreLibsPath,
 {
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
 
   // path to look for ogre media files
   std::vector<std::string> paths;

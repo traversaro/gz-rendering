@@ -34,6 +34,7 @@
 #include <ignition/plugin/Register.hh>
 
 #include "ignition/rendering/GraphicsAPI.hh"
+#include "ignition/rendering/InstallationDirectories.hh"
 #include "ignition/rendering/RenderEngineManager.hh"
 #include "ignition/rendering/ogre2/Ogre2Includes.hh"
 #include "ignition/rendering/ogre2/Ogre2RenderEngine.hh"
@@ -672,7 +673,7 @@ void Ogre2RenderEngine::RegisterHlms()
 {
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
   // install path
   std::string mediaPath = common::joinPaths(resourcePath, "ogre2", "media");
   if (!common::exists(mediaPath))
@@ -861,7 +862,7 @@ void Ogre2RenderEngine::CreateResources()
 {
   const char *env = std::getenv("IGN_RENDERING_RESOURCE_PATH");
   std::string resourcePath = (env) ? std::string(env) :
-      IGN_RENDERING_RESOURCE_PATH;
+      ignition::rendering::getResourcePath();
   // install path
   std::string mediaPath = common::joinPaths(resourcePath, "ogre2", "media");
   if (!common::exists(mediaPath))
